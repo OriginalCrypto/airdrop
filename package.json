@@ -1,0 +1,44 @@
+{
+  "name": "airdrop",
+  "version": "0.0.1",
+  "description": "CryptoCoin coming at ya!",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/OriginalCrypto/airdrop.git"
+  },
+  "keywords": [
+    "OCC",
+    "CryptoCoin",
+    "OriginalCryptoCoin",
+    "free",
+    "tokens",
+    "ERC20"
+  ],
+  "author": "Mish Ochu",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/OriginalCrypto/airdrop/issues"
+  },
+  "homepage": "https://github.com/OriginalCrypto/airdrop#readme",
+  "devDependencies": {
+    "babel-preset-env": "^1.6.1",
+    "babelify": "^8.0.0",
+    "browserify": "^15.2.0",
+    "del": "^3.0.0",
+    "gulp": "^3.9.1",
+    "gulp-cache": "^1.0.2",
+    "gulp-define-module": "^0.1.5",
+    "gulp-handlebars": "^5.0.1",
+    "gulp-imagemin": "^4.1.0",
+    "gulp-minify": "^2.1.0",
+    "gulp-rename": "^1.2.2",
+    "gulp-size": "^3.0.0",
+    "run-sequence": "^2.2.1",
+    "vinyl-buffer": "^1.0.1",
+    "vinyl-source-stream": "^2.0.0"
+  }
+}
