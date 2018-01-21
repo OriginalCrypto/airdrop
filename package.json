@@ -40,5 +40,14 @@
     "run-sequence": "^2.2.1",
     "vinyl-buffer": "^1.0.1",
     "vinyl-source-stream": "^2.0.0"
+  },
+  "dependencies": {
+    "babel-core": "^6.26.0",
+    "backbone": "^1.3.3",
+    "backbone.marionette": "^3.5.1",
+    "copy-to-clipboard": "^3.0.8",
+    "jquery": "^3.3.1",
+    "qrious": "^4.0.2",
+    "underscore": "^1.8.3"
   }
 }

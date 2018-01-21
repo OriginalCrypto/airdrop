@@ -41,6 +41,10 @@ const gulp            = require('gulp'),
           }
         };
 
+gulp.task('clean', function (callback) {
+  runSequence('clean:dist', 'clean:stage', callback);
+});
+
 gulp.task('clean:stage', function () {
   let stagingDir = `${config.staging.baseDir}/${config.fileTypes.all}`;
   return del.sync(stagingDir);
@@ -74,7 +78,7 @@ gulp.task('bundle:javascript', ['handlebars', 'javascript'], function () {
   let mainFile = `${config.staging.baseDir}/${config.fileTypes.main}`,
       distributionDir = `${config.distribution.baseDir}/${config.distribution.javascript}`;
   return browserify(mainFile)
-  .transform(babelify, { presets: ['es2015'] })
+  .transform(babelify, { presets: ['env'] })
   .bundle()
   .pipe(source(config.name + '.js'))
   .pipe(buffer())
