@@ -1,13 +1,13 @@
 import _              from 'underscore';
 import Backbone       from 'backbone';
 import Router         from './router';
-import View           from './views/admin';
+import View           from './views/register';
 import ViewComponent  from '../_base/view-component';
 
 let _self;
 
-const Admin = ViewComponent.extend({
-  appChannel: 'admin',
+const Register = ViewComponent.extend({
+  appChannel: 'register',
   initialize: function (options) {
     _self = this;
     if (!_.isObject(this.view)) {
@@ -24,9 +24,9 @@ const Admin = ViewComponent.extend({
     //        viewComponent.showView(region);
     
   },
-  loadAdmin: function () {
+  loadRegistration: function () {
     // TODO: use sed or gulp to insert file path to console.log for all js files
-    console.log('[src/js/admin/admin] we called loadAdmin');
+    console.log('[src/js/register/register] we called loadRegistration');
 
     let region = _self
       .getContainer()
@@ -39,5 +39,5 @@ const Admin = ViewComponent.extend({
   }
 });
 
-export default Admin;
+export default Register;
 
