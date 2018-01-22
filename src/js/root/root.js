@@ -16,7 +16,9 @@ const Root = ViewContainerComponent.extend({
   },
   onViewRender: function () {
     // TODO: grab regions to put sub views in
-    let region = this.view.getRegion('root');
+    let region = this
+      .getView()
+      .getRegion('root');
     
     // TODO: show the view in the appropriate region
     //        viewComponent.showView(region);
@@ -30,7 +32,8 @@ const Root = ViewContainerComponent.extend({
     let candidateComponent = activeComponent || firstComponent;
 
     if (candidateComponent) {
-      region.show(candidateComponent.getView());
+      candidateComponent.showView(region);
+      //region.show(candidateComponent.getView());
     } else {
       throw new Error('no components to show');
     }

@@ -28,9 +28,12 @@ const Admin = ViewComponent.extend({
     // TODO: use sed or gulp to insert file path to console.log for all js files
     console.log('[src/js/admin/admin] we called loadAdmin');
 
-
-    //_self.getContainer().showView(_self.getView());
-    //appChannel.trigger('view:show', _self.getView());
+    let region = _self
+      .getContainer()
+      .getView()
+      .getRegion('root');
+    
+    this.showView(region);
   }
 });
 
