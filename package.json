@@ -48,6 +48,7 @@
     "copy-to-clipboard": "^3.0.8",
     "jquery": "^3.3.1",
     "qrious": "^4.0.2",
-    "underscore": "^1.8.3"
+    "underscore": "^1.8.3",
+    "web3": "^0.20.4"
   }
 }
