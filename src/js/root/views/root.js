@@ -9,7 +9,7 @@ const RootView = Marionette.View.extend({
     return tmpl();
   },
   regions: {
-    main: 'main',
+    root: '.root-container',
     // TODO: add regions for sub views
   }
 });

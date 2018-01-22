@@ -1,27 +1,39 @@
-import Backbone      from 'backbone';
-import View          from './views/root';
-import ViewComponent from '../_base/view-component';
+import _                      from 'underscore';
+import Backbone               from 'backbone';
+import View                   from './views/root';
+import ViewContainerComponent from '../_base/view-container-component';
 
 let _self;
-  
 
-const Root = ViewComponent.extend({
+const Root = ViewContainerComponent.extend({
   appChannel: 'root',
   initialize: function (options) {
     _self = this;
-    this.view = new View();
-
-    // TODO: instantiate sub view components
-    //        viewComponent = new ViewComponent();
-
+    if (!_.isObject(this.view)) {
+      this.setView(new View());
+    }
     this.listenTo(this.view, 'render', this.onViewRender); 
   },
   onViewRender: function () {
     // TODO: grab regions to put sub views in
-    //       let region = this.view.getRegion('<some-region>');
+    let region = this.view.getRegion('root');
     
     // TODO: show the view in the appropriate region
     //        viewComponent.showView(region);
+    let componentsArray = Object.values(this.components),
+        activeComponent = _.find(componentsArray,
+          function (component) {
+            return component.options.active;
+          }),
+        firstComponent = _.first(componentsArray);
+
+    let candidateComponent = activeComponent || firstComponent;
+
+    if (candidateComponent) {
+      region.show(candidateComponent.getView());
+    } else {
+      throw new Error('no components to show');
+    }
   }
 });
 
