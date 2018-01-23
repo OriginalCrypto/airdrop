@@ -18,6 +18,11 @@ const Register = ViewComponent.extend({
     },
     model = new Backbone.Model(mainAccount);
 
+  (function(view, m) {
+    _self.interval = window.setInterval(function() {
+      m.set({ address: Ethereum.getWeb3().eth.accounts[0] });
+    }, 5000);
+  })(this, model);
 
     if (!_.isObject(this.view)) {
       this.setView(new View({ model: model }));
@@ -48,6 +53,9 @@ const Register = ViewComponent.extend({
     region.detachView();
 
     this.showView(region);
+  },
+  onBeforeDestroy: function () {
+    window.clearInterval(_self.interval);
   }
 });
 
