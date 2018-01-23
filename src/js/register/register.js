@@ -3,6 +3,7 @@ import Backbone       from 'backbone';
 import Router         from './router';
 import View           from './views/register';
 import ViewComponent  from '../_base/view-component';
+import Ethereum       from '../utilities/ethereum';
 
 let _self;
 
@@ -10,9 +11,20 @@ const Register = ViewComponent.extend({
   appChannel: 'register',
   initialize: function (options) {
     _self = this;
+    let mainAccount = { address: Ethereum
+      .getWeb3()
+      .eth
+      .accounts[0]
+    },
+    model = new Backbone.Model(mainAccount);
+
+
     if (!_.isObject(this.view)) {
-      this.setView(new View());
+      this.setView(new View({ model: model }));
+    } else {
+      this.view.model.set(mainAccount);
     }
+
     this.listenTo(this.view, 'render', this.onViewRender); 
     this.router = new Router({ controller: this });
   },

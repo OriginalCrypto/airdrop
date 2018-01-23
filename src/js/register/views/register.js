@@ -4,9 +4,14 @@ let _self;
 
 const RegisterView = Marionette.View.extend({
   initialize: function (options) {
+    _self = this;
   },
   template: function (data) {
-    return tmpl();
+    if (_self.model) {
+      return tmpl(_self.model.toJSON());
+    } else {
+      return tmpl();
+    }
   },
   regions: {
     main: '#registration'

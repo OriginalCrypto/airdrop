@@ -5,7 +5,7 @@ const gulp            = require('gulp'),
       cache           = require('gulp-cache'),
       defmod          = require('gulp-define-module'),
       del             = require('del'),
-      fs              = require('fs'),
+      file            = require('gulp-file'),
       handlebars      = require('gulp-handlebars'),
       imagemin        = require('gulp-imagemin'),
       minify          = require('gulp-minify'),
@@ -24,6 +24,7 @@ const gulp            = require('gulp'),
             html: '**/*.html',
             images: '**/*.+(png|jpg|jpeg|gif|svg)',
             js: 'js/**/*.js',
+            contracts: 'contracts/*.json',
             main: 'js/main.js'
           },
           source: {
@@ -32,12 +33,14 @@ const gulp            = require('gulp'),
           },
           staging: {
             baseDir: 'staging',
-            javascript: 'js'
+            javascript: 'js',
+            contracts: 'contracts'
           },
           distribution: {
             baseDir: 'dist',
             javascript: 'js',
-            images: 'images'
+            images: 'images',
+            contracts: 'contracts'
           }
         };
 
@@ -53,6 +56,32 @@ gulp.task('clean:stage', function () {
 gulp.task('clean:dist', function () {
   let distributionDir = `${config.distribution.baseDir}/${config.fileTypes.all}`;
   return del.sync(distributionDir);
+});
+
+gulp.task('contracts', function () {
+  let sourceDir  = `${config.source.baseDir}/${config.fileTypes.contracts}`,
+      stagingDir = `${config.staging.baseDir}/${config.staging.contracts}`;
+  return gulp.src(sourceDir)
+  .pipe(gulp.dest(stagingDir));
+});
+
+gulp.task('config', function () {
+  let stagingDir = `${config.staging.baseDir}/${config.staging.javascript}`,
+      environment = 'export default { ',
+      indexOfNetworkOption = process.argv.indexOf('--network'),
+      optionValue,
+      repeatCounter = 2;
+      
+  if (indexOfNetworkOption> -1) {
+     optionValue = process.argv[indexOfNetworkOption + 1];
+    environment += `environment: \"${optionValue}\" }\n`; 
+  } else {
+    environment += '}\n';
+  }
+
+  return file('config.js', environment, { src: true })
+    .pipe(gulp.dest(stagingDir));
+
 });
 
 gulp.task('javascript', function () {
@@ -74,7 +103,7 @@ gulp.task('handlebars', function () {
   .pipe(gulp.dest(stagingDir));
 });
 
-gulp.task('bundle:javascript', ['handlebars', 'javascript'], function () {
+gulp.task('bundle:javascript', ['handlebars', 'javascript', 'contracts', 'config'], function () {
   let mainFile = `${config.staging.baseDir}/${config.fileTypes.main}`,
       distributionDir = `${config.distribution.baseDir}/${config.distribution.javascript}`;
   return browserify(mainFile)
