@@ -2,9 +2,48 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 </head>
-<body>
-  <div id="app" class="pusher"></div>
+<body class="text-center">
+  <div class="cover-container d-flex h-100 p-3 mx-auto flex-column">
+    <main role="main" class="inner cover">
+      <h1 class="cover-heading">Registration</h1>
+      <p class="lead">Some blurb</p>
+      <div class="qr">
+        <img class="qr img-thumbnail" alt="qrcode of account" src />
+      </div>
+      <h3><span class="account">[some account]</span>&nbsp;<span class="badge badge-secondary"><span class="balance">???</span> OCC</span></h3>
+      <p class="lead">
+        <div class="d-none alert alert-warning alert-dismissible fade show registered" role="alert">
+          <strong>Looks like you're already registered.</strong> That's great, now share the love and let others know about OCC's airdrop You should check in on some of those fields below.
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <a href="#" class="btn btn-lg btn-secondary get-coins">Get Coins</a>
+        <div class="d-none alert alert-danger registration-failure alert-dismissible fade show" role="alert">
+          Uh oh. Something went wrong, you can check a <a href="#" class="alert-link explorer">blockchain explorer</a> for more details.
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="d-none alert alert-success alert-dismissible fade show" role="alert">
+          They're on their way! You can check a <a href="#" class="alert-link explorer">blockchain explorer</a> for more details.
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="d-none alert alert-danger failure alert-dismissible fade show" role="alert">
+          Uh oh. Something went wrong: <span class="failure-message"></span>
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+
+      </p>
+    </main>
+  </div>
   <script type="text/javascript" src="js/airdrop.js"></script>
 </body>
 </html>
