@@ -21,14 +21,27 @@ const app = {
   explorerFormatString: undefined,
   start: function () {
     
-    const networkId = Ethereum.getWeb3().network,
-          networkName = networks.find(function (network) { return network.id == networkId;});
+    (function (context) {
+      Ethereum
+        .getWeb3()
+        .version
+        .getNetwork(function (error, networkId) {
+
+        const network= networks.find(function (network) { return network.id == networkId;});
         
-    if (networkName === 'main' || networkName === undefined) {
-      this.explorerFormatString = 'https://etherscan.io';
-    } else {
-      this.explorerFormatString = `https://${networkName}.etherscan.io`;
-    }
+        if (network !== undefined) {
+          if (network.name === 'main') {
+            context.explorerFormatString = 'https://etherscan.io';
+          } else {
+            context.explorerFormatString = `https://${network.name}.etherscan.io`;
+          }
+
+          jQuery(context.display.network).text(network.name);
+        }
+      });
+    })(this);
+    
+   
 
     this.setAccount(this);
     // accounts can change, 
@@ -83,12 +96,15 @@ const app = {
     context.airdrop.deployed()
       .then(function (instance) {
         return instance.register({ from: context.account })
-        .then(function (tx) {
-          if (tx.status) {
+        .then(function (response) {
+          console.log(response);
+          if (response.receipt.status === 1) {
             jQuery(context.display.successAlert).removeClass('d-none');
           } else {
             jQuery(context.display.registrationFailureAlert).removeClass('d-none');
           }
+
+          jQuery(context.display.explorerLink).attr('href', context.explorerFormatString + '/tx/' + response.tx); 
         });
       })
       .catch(function (e) {
@@ -96,19 +112,27 @@ const app = {
       });
   },
   setAccount: function (context) {
-    const accountCandidate = Ethereum.getWeb3().eth.accounts[0];
+    let accountCandidate;
 
-    if (context.account !== accountCandidate) {
-      console.log(`account changing from \'${context.account}\' to \'${accountCandidate}\'`);
-      context.account = accountCandidate;
-      const qr = new QR({ value: `ethereum:${context.account}` });
-      jQuery(context.display.qr).attr('src', qr.toDataURL());
-      jQuery(context.display.account).text(context.account);
+    Ethereum
+      .getWeb3()
+      .eth
+      .getAccounts(function (error, accounts) {
 
-      if (context.token) {
-        context.setBalance(context, context.token);
+      accountCandidate = accounts[0];
+
+      if (context.account !== accountCandidate) {
+        console.log(`account changing from \'${context.account}\' to \'${accountCandidate}\'`);
+        context.account = accountCandidate;
+        const qr = new QR({ value: `ethereum:${context.account}` });
+        jQuery(context.display.qr).attr('src', qr.toDataURL());
+        jQuery(context.display.account).text(context.account);
+
+        if (context.token) {
+          context.setBalance(context, context.token);
+        }
       }
-    }
+    });
   },
   setBalance: function (context, token) {
     token.deployed()
@@ -149,7 +173,8 @@ const app = {
     explorerLink: 'a.explorer',
     failureAlert: 'div.alert.failure',
     failureAlertMessage: 'span.failure-message',
-    successAlert: 'div.alert-success'
+    successAlert: 'div.alert-success',
+    network: '.network'
   }
 };
 
