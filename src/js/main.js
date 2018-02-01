@@ -40,26 +40,7 @@ const app = {
     this.airdrop = Ethereum.getAirdropCampaignContract();
 
     // get balance
-    (function (context, token) {
-      token.deployed()
-      .then(function (instance) {
-        return instance.decimals.call()
-        .then(function (bigDecimals) {
-          context.decimals = bigDecimals.toNumber();
-          return instance;
-        });
-      })
-      .then(function (instance) {
-        return instance.balanceOf.call(context.account);
-      })
-      .then(function (bigBalance) {
-        const balance = bigBalance.toNumber();
-        context.setBalance(balance * Math.pow(10, -1 * (context.decimals || 18)));
-      })
-      .catch(function (e) {
-        context.setFailure(e);
-      });
-    })(this, this.token);
+    this.setBalance(this, this.token);
 
     // get the airdrop campaign rules
     (function (context, airdrop) {
@@ -78,7 +59,7 @@ const app = {
       .then(function (instance) {
         if (!context.canDisburseMultipleTimes && context.previousDisbursement > 0) {
           jQuery(context.display.previousRegistrationAlert).removeClass('d-none');
-          jQuery(context.display.registrationButton).attr('disabled': true);
+          jQuery(context.display.registrationButton).attr('disabled', true);
         }
       })
       .catch(function (e) {
@@ -90,7 +71,7 @@ const app = {
     this.bindWeb3Events();
   },
   bindDomEvents: function () {
-    $(document).on('click', this.display.registrationButton, this, this.register);
+    jQuery(document).on('click', this.display.registrationButton, this, this.register);
   },
   bindWeb3Events: function () {
   },
@@ -101,9 +82,9 @@ const app = {
     const context = event.data;
     context.airdrop.deployed()
       .then(function (instance) {
-        return instance.register.call()
-        .then(function (result) {
-          if (result) {
+        return instance.register({ from: context.account })
+        .then(function (tx) {
+          if (tx.status) {
             jQuery(context.display.successAlert).removeClass('d-none');
           } else {
             jQuery(context.display.registrationFailureAlert).removeClass('d-none');
@@ -123,10 +104,31 @@ const app = {
       const qr = new QR({ value: `ethereum:${context.account}` });
       jQuery(context.display.qr).attr('src', qr.toDataURL());
       jQuery(context.display.account).text(context.account);
+
+      if (context.token) {
+        context.setBalance(context, context.token);
+      }
     }
   },
-  setBalance: function (amount) {
-    jQuery(this.display.balance).text(amount);
+  setBalance: function (context, token) {
+    token.deployed()
+    .then(function (instance) {
+      return instance.decimals.call()
+      .then(function (bigDecimals) {
+        context.decimals = bigDecimals.toNumber();
+        return instance;
+      });
+    })
+    .then(function (instance) {
+      return instance.balanceOf.call(context.account);
+    })
+    .then(function (bigBalance) {
+      const balance = bigBalance.toNumber();
+      jQuery(context.display.balance).text(balance * Math.pow(10, -1 * (context.decimals || 18)));
+    })
+    .catch(function (e) {
+      context.setFailure(e);
+    });
   },
   setFailure: function (e) {
     const failureMessage = jQuery(this.display.failureAlertMessage),
