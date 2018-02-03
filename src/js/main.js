@@ -95,11 +95,14 @@ const app = {
     const context = event.data;
     context.airdrop.deployed()
       .then(function (instance) {
+        jQuery(context.display.waiting).removeClass('d-none');
         return instance.register({ from: context.account })
         .then(function (response) {
+          jQuery(context.display.waiting).addClass('d-none');
           console.log(response);
-          if (response.receipt.status === 1) {
+          if (response.receipt.status === '0x1') {
             jQuery(context.display.successAlert).removeClass('d-none');
+            context.setBalance(context, context.token);
           } else {
             jQuery(context.display.registrationFailureAlert).removeClass('d-none');
           }
@@ -156,11 +159,14 @@ const app = {
   },
   setFailure: function (e) {
     const failureMessage = jQuery(this.display.failureAlertMessage),
-          failureAlert   = jQuery(this.display.failureAlert);
-
+          failureAlert   = jQuery(this.display.failureAlert),
+          waitingIcon    = jQuery(this.display.waiting).addClass('d-none');
     
     failureMessage.text(e.message || e);
     failureAlert.removeClass('d-none');
+    if (!waitingIcon.hasClass('d-none')) {
+      waitingIcon.addClass('d-none');
+    }
     throw e;
   },
   display: {
@@ -168,13 +174,14 @@ const app = {
     account: '.account',
     balance: '.balance',
     previousRegistrationAlert: '.registered',
-    registrationButton: 'a.get-coins',
+    registrationButton: '.get-coins',
     registrationFailureAlert: 'div.alert.registration-failure',
     explorerLink: 'a.explorer',
     failureAlert: 'div.alert.failure',
     failureAlertMessage: 'span.failure-message',
     successAlert: 'div.alert-success',
-    network: '.network'
+    network: '.network',
+    waiting: 'div.waiting'
   }
 };
 

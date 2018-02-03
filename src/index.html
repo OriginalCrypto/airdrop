@@ -5,6 +5,29 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 </head>
+<style>
+  .waiting {
+    background-color: #6c757d;
+    margin-top: 10px;
+    height: 100px;
+    width: 100px;
+    mask-size: contain;
+    mask-image: url('./images/eth.svg');
+    -webkit-mask-size: contain;
+    -webkit-mask-image: url('./images/eth.svg');
+    animation: roll 3s infinite;
+    transform: rotate(30deg);
+  }
+
+  @keyframes roll {
+    0% {
+      transform: rotate(0);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+</style>
 <body class="text-center">
   <div class="cover-container d-flex h-100 p-3 mx-auto flex-column">
     <main role="main" class="inner cover">
@@ -17,12 +40,13 @@
       <h3><span class="account">[some account]</span>&nbsp;<span class="badge badge-secondary"><span class="balance">???</span> OCC</span></h3>
       <p class="lead">
         <div class="d-none alert alert-warning alert-dismissible fade show registered" role="alert">
-          <strong>Looks like you're already registered.</strong> That's great, now share the love and let others know about OCC's airdrop You should check in on some of those fields below.
+          <strong>Looks like you're already registered.</strong> That's great, now share the love and let others know about OCC's airdrop!
           <button type="button" class="close" data-dismiss="alert" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
-        <a href="#" class="btn btn-lg btn-secondary get-coins">Get Coins</a>
+        <button type="button" class="btn btn-lg btn-secondary get-coins">Get Coins</button>
+        <div class="d-none container waiting"></div>
         <div class="d-none alert alert-danger registration-failure alert-dismissible fade show" role="alert">
           Uh oh. Something went wrong, you can check a <a href="#" class="alert-link explorer">blockchain explorer</a> for more details.
           <button type="button" class="close" data-dismiss="alert" aria-label="Close">
