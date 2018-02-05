@@ -9,6 +9,7 @@ const AirdropCampaignArtifact = require('../../contracts/AirdropCampaign.json'),
 
 let provider,
     bundledWeb3,
+    isInjectedWeb3Provider,
     contracts = {};
 
 export default {
@@ -25,6 +26,7 @@ export default {
 
         provider = Web3.providers.HttpProvider(`http://${network.host}:${network.port}`);
       } else {
+        isInjectedWeb3Provider = true;
         provider = web3.currentProvider;
       }
     }
@@ -57,6 +59,7 @@ export default {
     }
 
     return contracts.OriginalToken;
-  }
+  },
+  isRunningInWeb3Browser: function () { return isInjectedWeb3Provider; }
 };
 

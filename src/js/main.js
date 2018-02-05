@@ -82,6 +82,10 @@ const app = {
 
     this.bindDomEvents();
     this.bindWeb3Events();
+
+    if (Ethereum.isRunningInWeb3Browser()) {
+      jQuery(this.display.downloadWeb3).addClass('d-none');
+    }
   },
   bindDomEvents: function () {
     jQuery(document).on('click', this.display.registrationButton, this, this.register);
@@ -181,7 +185,8 @@ const app = {
     failureAlertMessage: 'span.failure-message',
     successAlert: 'div.alert-success',
     network: '.network',
-    waiting: 'div.waiting'
+    waiting: 'div.waiting',
+    downloadWeb3: '.download-web3'
   }
 };
 
