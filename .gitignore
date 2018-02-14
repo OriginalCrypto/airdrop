@@ -59,6 +59,7 @@ typings/
 
 staging/
 dist/
+dist
 
 *.swp
 
