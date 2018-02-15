@@ -24,7 +24,7 @@ const gulp            = require('gulp'),
             images: '**/*.+(png|jpg|jpeg|gif|svg)',
             js: 'js/**/*.js',
             contracts: 'contracts/*.json',
-            main: 'js/app.js'
+            main: 'js/loader.js'
           },
           source: {
             baseDir: 'src',

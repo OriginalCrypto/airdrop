@@ -6,7 +6,7 @@ export default class Button extends React.Component {
     const { text, link } = this.props 
 
     return (
-      <span><a class="btn btn-lg btn-primary" href={link} role="button">{text}</a>&nbsp;</span>
+      <span> <a class="btn btn-lg btn-primary" href={link} role="button">{text}</a>&nbsp; </span>
     );
   }
 }
