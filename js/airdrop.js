@@ -84389,10 +84389,9 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 var primaryAccount = void 0,
     accountCandidate = void 0,
-    pollForAccountInterval = void 0;
-
-var token = _ethereum2.default.getOriginalTokenContract();
-var airdrop = _ethereum2.default.getAirdropCampaignContract();
+    pollForAccountInterval = void 0,
+    token = void 0,
+    airdrop = void 0;
 
 var App = function (_EventEmitter) {
   _inherits(App, _EventEmitter);
@@ -84400,7 +84399,11 @@ var App = function (_EventEmitter) {
   function App() {
     _classCallCheck(this, App);
 
-    return _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).apply(this, arguments));
+    var _this = _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).call(this));
+
+    token = _ethereum2.default.getOriginalTokenContract();
+    airdrop = _ethereum2.default.getAirdropCampaignContract();
+    return _this;
   }
 
   _createClass(App, [{
