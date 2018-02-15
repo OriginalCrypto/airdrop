@@ -4,76 +4,13 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+  <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
 </head>
-<style>
-  .waiting {
-    background-color: #6c757d;
-    margin-top: 10px;
-    height: 100px;
-    width: 100px;
-    mask-size: contain;
-    mask-image: url('./images/eth.svg');
-    -webkit-mask-size: contain;
-    -webkit-mask-image: url('./images/eth.svg');
-    animation: roll 3s infinite;
-    transform: rotate(30deg);
-  }
-
-  @keyframes roll {
-    0% {
-      transform: rotate(0);
-    }
-    100% {
-      transform: rotate(360deg);
-    }
-  }
-</style>
-<body class="text-center">
-  <div class="cover-container d-flex h-100 p-3 mx-auto flex-column">
-    <main role="main" class="inner cover">
-      <h1 class="cover-heading">Registration</h1>
-      <p class="lead">Some blurb</p>
-      <p class="lead">If you're using MetaMask or a local web3 provider please be sure to check <a href="https://ethgasstation.info/">ETH Gas Station</a> to stay in full control of your gas usage.</p>
-      <div class="qr">
-        <img class="qr img-thumbnail" alt="qrcode of account" src />
-      </div>
-      <h3><span class="account">[some account]</span>&nbsp;<span class="badge badge-secondary"><span class="balance">???</span> OCC</span></h3>
-      <p class="lead">
-        <div class="d-none alert alert-warning alert-dismissible fade show registered" role="alert">
-          <strong>Looks like you're already registered.</strong> That's great, now share the love and let others know about OCC's airdrop!
-          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <button type="button" class="btn btn-lg btn-secondary get-coins">Get Coins</button>
-        <div class="d-none container waiting"></div>
-        <div class="d-none alert alert-danger registration-failure alert-dismissible fade show" role="alert">
-          Uh oh. Something went wrong, you can check a <a href="#" class="alert-link explorer">blockchain explorer</a> for more details.
-          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="d-none alert alert-success alert-dismissible fade show" role="alert">
-          They're on their way! You can check a <a href="#" class="alert-link explorer">blockchain explorer</a> for more details.
-          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="d-none alert alert-danger failure alert-dismissible fade show" role="alert">
-          Uh oh. Something went wrong: <span class="failure-message"></span>
-          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-
-      </p>
-      <hr>
-      <p>This app has been tested using <a href="https://github.com/ethereum/mist">Mist</a>, <a href="https://metamask.io/">MetaMask</a>, and <a href="https://www.cipherbrowser.com/">Cipher Browser</a>.</p>
-      <a class="download-web3" href="https://github.com/ethereum/mist"><img alt="metamask" src="./images/download-metamask.png" /></a>
-      <hr>
-      <p>Ethereum Network: <span class="network">Unknown</span></p>
-    </main>
-  </div>
+<body>
+  <div id="app"></div>
   <script type="text/javascript" src="js/airdrop.js"></script>
 </body>
 </html>
