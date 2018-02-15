@@ -6,12 +6,18 @@ import BigNumber        from 'bignumber.js';
 
 let primaryAccount,
     accountCandidate,
-    pollForAccountInterval
+    pollForAccountInterval,
+    token,
+    airdrop
 
-const token = Ethereum.getOriginalTokenContract()
-const airdrop = Ethereum.getAirdropCampaignContract()
 
 export default class App extends EventEmitter {
+  constructor () {
+    super()
+    token = Ethereum.getOriginalTokenContract()
+    airdrop = Ethereum.getAirdropCampaignContract()
+  }
+
   getNetwork () {
     return new Promise((resolve, reject) => {
       Ethereum
