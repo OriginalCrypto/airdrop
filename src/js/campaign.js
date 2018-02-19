@@ -123,7 +123,7 @@ export default class Campaign extends React.Component {
     const generalFailureAlertClass = 'alert alert-danger failure alert-dismissible fade show' + (this.state.generalFailureMessage ? '': ' d-none ')
 
     return (
-      <div class="cover-container d-flex h-100 mx-auto flex-column">
+      <div class="d-flex flex-column">
         <Header />
         <main role="main" class="inner cover">
                     <div class="text-center">

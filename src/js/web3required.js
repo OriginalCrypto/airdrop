@@ -58,7 +58,7 @@ export default class DappBrowserRequired extends React.Component {
       }
     })
     return (
-      <div class="cover-container d-flex h-100 mx-auto flex-column">
+      <div class="d-flex flex-column">
         <Header />
         <div class="text-center">
           <h1 class="cover-heading">Dapp Browser Required</h1>

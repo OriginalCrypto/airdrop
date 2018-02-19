@@ -3,11 +3,17 @@ import React from 'react';
 export default class Header extends React.Component {
   render () {
     const imgStyle = {
-      maxWidth: "25%"
+      maxWidth: '100%',
+      maxHeight: 'auto'
     }
     return (
-      <div class="row bg-dark justify-content-between"> <div class="col-4"><a href="https://originalcryptocoin.com"><img style={imgStyle} alt="Logo" src="./images/crypto-logo-white.png" /></a></div>
-        <ul class="nav col-4">
+      <div class="bg-dark">
+        <div class="col-xs-4 col-sm-6 col-lg-3">
+          <a href="https://originalcryptocoin.com">
+            <img class="img-fluid" style={imgStyle} alt="Logo" src="./images/crypto-logo-white.png" />
+          </a>
+        </div>
+        <ul class="nav col-xs-8 col-sm-9 col-lg-9">
           <li class="nav-item">
             <a class="text-light nav-link" href="https://originalcryptocoin.com">Home</a>
           </li>
