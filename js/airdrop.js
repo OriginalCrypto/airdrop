@@ -84723,7 +84723,7 @@ var Campaign = function (_React$Component) {
 
       return _react2.default.createElement(
         'div',
-        { className: 'cover-container d-flex h-100 mx-auto flex-column' },
+        { className: 'd-flex flex-column' },
         _react2.default.createElement(_header2.default, null),
         _react2.default.createElement(
           'main',
@@ -84925,7 +84925,7 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = {};
 
 },{}],345:[function(require,module,exports){
-"use strict";
+'use strict';
 
 Object.defineProperty(exports, "__esModule", {
   value: true
@@ -84933,7 +84933,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _react = require("react");
+var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
@@ -84955,61 +84955,61 @@ var Header = function (_React$Component) {
   }
 
   _createClass(Header, [{
-    key: "render",
+    key: 'render',
     value: function render() {
       var imgStyle = {
-        maxWidth: "25%"
+        maxWidth: '100%',
+        maxHeight: 'auto'
       };
       return _react2.default.createElement(
-        "div",
-        { className: "row bg-dark justify-content-between" },
-        " ",
+        'div',
+        { className: 'bg-dark' },
         _react2.default.createElement(
-          "div",
-          { className: "col-4" },
+          'div',
+          { className: 'col-xs-4 col-sm-6 col-lg-3' },
           _react2.default.createElement(
-            "a",
-            { href: "https://originalcryptocoin.com" },
-            _react2.default.createElement("img", { style: imgStyle, alt: "Logo", src: "./images/crypto-logo-white.png" })
+            'a',
+            { href: 'https://originalcryptocoin.com' },
+            _react2.default.createElement('img', { className: 'img-fluid', style: imgStyle, alt: 'Logo', src: './images/crypto-logo-white.png' })
           )
         ),
         _react2.default.createElement(
-          "ul",
-          { className: "nav col-4" },
+          'ul',
+          { className: 'nav col-xs-8 col-sm-9 col-lg-9' },
           _react2.default.createElement(
-            "li",
-            { className: "nav-item" },
+            'li',
+            { className: 'nav-item' },
             _react2.default.createElement(
-              "a",
-              { className: "text-light nav-link", href: "https://originalcryptocoin.com" },
-              "Home"
+              'a',
+              { className: 'text-light nav-link', href: 'https://originalcryptocoin.com' },
+              'Home'
             )
           ),
           _react2.default.createElement(
-            "li",
-            { className: "nav-item" },
+            'li',
+            { className: 'nav-item' },
             _react2.default.createElement(
-              "a",
-              { className: "text-light nav-link", href: "https://originalcryptocoin.com/faq/" },
-              "FAQ"
+              'a',
+              { className: 'text-light nav-link', href: 'https://originalcryptocoin.com/faq/' },
+              'FAQ'
             )
           ),
           _react2.default.createElement(
-            "li",
-            { className: "nav-item" },
+            'li',
+            { className: 'nav-item' },
             _react2.default.createElement(
-              "a",
-              { className: "text-light nav-link", href: "https://originalcryptocoin.com/knowledgebase" },
-              "Knowledge Base"
+              'a',
+              { className: 'text-light nav-link', href: 'https://originalcryptocoin.com/knowledgebase' },
+              'Knowledge Base'
             )
           ),
           _react2.default.createElement(
-            "li",
-            { className: "nav-item" },
+            'li',
+            { className: 'nav-item' },
             _react2.default.createElement(
-              "a",
-              { className: "text-light nav-link", href: "https://originalcryptocoin.com/crypto-glossary" },
-              "Glossary"
+              'a',
+              { className: 'text-light nav-link', href: 'https://originalcryptocoin.com/crypto-glossary' },
+              'Glossary'
             )
           )
         )
@@ -85325,7 +85325,7 @@ var DappBrowserRequired = function (_React$Component) {
       });
       return _react2.default.createElement(
         'div',
-        { className: 'cover-container d-flex h-100 mx-auto flex-column' },
+        { className: 'd-flex flex-column' },
         _react2.default.createElement(_header2.default, null),
         _react2.default.createElement(
           'div',
