@@ -114,7 +114,7 @@ gulp.task('stage:css', function () {
   .pipe(gulp.dest(config.distribution.baseDir));
 });
 
-gulp.task('bundle:javascript', ['stage:javascript', 'stage:contracts', 'stage:config'], function () {
+gulp.task('bundle', ['stage:javascript', 'stage:contracts', 'stage:config'], function () {
   let mainFile = `${config.staging.baseDir}/${config.fileTypes.main}`,
       distributionDir = `${config.distribution.baseDir}/${config.distribution.javascript}`;
   return browserify(mainFile)
@@ -133,7 +133,7 @@ gulp.task('bundle:javascript', ['stage:javascript', 'stage:contracts', 'stage:co
 });
 
 gulp.task('build', function (callback) {
-  runSequence('clean:dist', 'clean:stage', ['stage:html', 'stage:css', 'stage:images', 'bundle:javascript'],
+  runSequence('clean:dist', 'clean:stage', ['stage:html', 'stage:css', 'stage:images', 'bundle'],
     callback);
 });
 

@@ -99,6 +99,14 @@ export default class App extends EventEmitter {
       })
   }
 
+  getHolderAddress () {
+    return airdrop
+      .deployed()
+      .then(instance => {
+        return instance.tokenHolderAddress.call()
+      })
+  }
+
   getRules () {
     return airdrop
       .deployed()
@@ -113,5 +121,9 @@ export default class App extends EventEmitter {
       .then(function (instance) {
         return instance.register({ from: account })
       })
+  }
+
+  toBigNumber (value) {
+    return Ethereum.getWeb3().toBigNumber(value)
   }
 }

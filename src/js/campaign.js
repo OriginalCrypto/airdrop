@@ -10,6 +10,7 @@ const transientState = {
   network: 'unknown',
   previouslyRegistered: false,
   canDisburseMultipleTimes: false,
+  isActive: true,
   waiting: false
 }
 
@@ -29,6 +30,22 @@ export default class Campaign extends React.Component {
         transientState.account = account
         transientState.accountQR = qr.toDataURL()
         this.setState(transientState)
+      })
+      .catch((e) => {
+        transientState.generalFailureMessage = e.message || e
+        this.setState(transientState)
+      })
+
+    this.app.getHolderAddress()
+      .then(holder => {
+        this.app.getBalance(holder)
+          .then(balanceOfHolder => {
+            const compareAmount = this.app.toBigNumber('5e6')
+            if (compareAmount.gt(balanceOfHolder)) {
+              transientState.isActive = false
+              this.setState(transientState)
+            }
+          })
       })
       .catch((e) => {
         transientState.generalFailureMessage = e.message || e
@@ -116,11 +133,12 @@ export default class Campaign extends React.Component {
     const balanceClasses = (this.state.balance > 0) ? 'badge rounded-0 badge-success' : 'badge rounded-0 badge-warning'
     const previouslyRegisteredAlertClass = 'alert alert-warning alert-dismissible fade show registered ' + 
       (this.state.dismissedPreviouslyRegisteredAlert || (this.state.previouslyRegistered && !this.state.canDisburseMultipleTimes) ? '' : ' d-none ')
-    const registerDisabledAttribute = (this.state.previouslyRegistered && !this.state.canDisburseMultipleTimes) || this.state.waiting
+    const registerDisabledAttribute = ((this.state.previouslyRegistered && !this.state.canDisburseMultipleTimes) || this.state.waiting) || !this.state.isActive
     const waitingClass = 'container waiting' + (this.state.waiting ? '' : ' d-none ')
     const registrationSuccessAlertClass = 'alert alert-success alert-dismissible fade show' + (this.state.registrationSuccess ? '' : ' d-none ')
     const registrationFailureAlertClass = 'alert alert-danger registration-failure alert-dismissible fade show' + (this.state.registrationFailure ? '' : ' d-none ')
     const generalFailureAlertClass = 'alert alert-danger failure alert-dismissible fade show' + (this.state.generalFailureMessage ? '': ' d-none ')
+    const campaignOverAlertClass = 'alert alert-danger failure alert-dismissible fade show' + (!this.state.isActive ? '' : ' d-none ')
 
     return (
       <div class="d-flex flex-column">
@@ -136,6 +154,12 @@ export default class Campaign extends React.Component {
             <div class="lead">
               <div class={previouslyRegisteredAlertClass} role="alert">
                 <strong>Looks like you're already registered.</strong> That's great, now share the love and let others know about OCC's airdrop!
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class={campaignOverAlertClass} role="alert">
+                <strong>The campaign is over! Thank you for your interest in the OCC airdrop</strong>
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                 </button>
