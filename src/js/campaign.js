@@ -38,10 +38,10 @@ export default class Campaign extends React.Component {
 
     this.app.getHolderAddress()
       .then(holder => {
-        this.app.getBalance(holder)
-          .then(balanceOfHolder => {
+        this.app.getAllowance(holder, this.app.getAirdropAddress())
+          .then(allowance => {
             const compareAmount = this.app.toBigNumber('5e6')
-            if (compareAmount.gt(balanceOfHolder)) {
+            if (compareAmount.gt(allowance)) {
               transientState.isActive = false
               this.setState(transientState)
             }

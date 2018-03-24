@@ -68,6 +68,29 @@ export default class App extends EventEmitter {
     window.clearInterval(pollForAccountInterval)
   }
 
+  getAllowance (account, spender) {
+    let decimals
+
+    return token.deployed()
+      .then((instance) => {
+        return instance.decimals.call()
+        .then((bigDecimals) => {
+          decimals = bigDecimals
+          return instance
+        })
+      })
+      .then((instance) => {
+        return instance.allowance.call(account, spender)
+      })
+      .then((allowanceBeforeDecimals) => {
+        const bigTen = BigNumber(10)
+        const allowance = allowanceBeforeDecimals.mul(bigTen.exponentiatedBy(-1 * decimals))        
+        
+        this.emit('allowance', allowance)
+        return allowance 
+      })
+  }
+
   getBalance (account) {
     let decimals
 
@@ -105,6 +128,10 @@ export default class App extends EventEmitter {
       .then(instance => {
         return instance.tokenHolderAddress.call()
       })
+  }
+
+  getAirdropAddress () {
+    return airdrop.address
   }
 
   getRules () {
